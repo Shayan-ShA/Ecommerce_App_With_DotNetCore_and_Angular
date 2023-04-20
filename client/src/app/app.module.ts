@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CoreModule } from './core/core.module';
 import { ShopModule } from './shop/shop.module';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { ShopModule } from './shop/shop.module';
     TooltipModule.forRoot(),
     HttpClientModule,
     CoreModule,
-    ShopModule
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
