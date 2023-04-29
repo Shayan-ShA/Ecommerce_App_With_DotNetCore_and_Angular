@@ -8,16 +8,11 @@ namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-        private static readonly IConfiguration _config;
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            services.AddSingleton<IConnectionMultiplexer>(c =>
-            {
-                var options = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"));
-                return ConnectionMultiplexer.Connect(options);
-            });
+
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
