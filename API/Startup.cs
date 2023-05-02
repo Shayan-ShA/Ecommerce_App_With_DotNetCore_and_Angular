@@ -30,8 +30,9 @@ namespace API
                 var options = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"));
                 return ConnectionMultiplexer.Connect(options);
             });
-
+            
             services.AddApplicationServices();
+            services.AddIdentityServices(_config);
             services.AddSwaggerDocumentation();
         }
 
