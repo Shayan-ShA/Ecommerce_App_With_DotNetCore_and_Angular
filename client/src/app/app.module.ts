@@ -11,11 +11,13 @@ import { ShopModule } from './shop/shop.module';
 import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
