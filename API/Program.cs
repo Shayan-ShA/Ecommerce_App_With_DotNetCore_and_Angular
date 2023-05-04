@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using Core.Entities.Identity;
 
 namespace API
 {
@@ -20,11 +23,16 @@ namespace API
             {
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var context = services.GetRequiredService<StoreContext>();
+                var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
                 try
                 {
-                    var context = services.GetRequiredService<StoreContext>();
                     await context.Database.MigrateAsync();
+                    await identityContext.Database.MigrateAsync();
                     await StoreContextSeed.SeedAsync(context, loggerFactory);
+                    await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
                 }
                 catch(Exception ex)
                 {

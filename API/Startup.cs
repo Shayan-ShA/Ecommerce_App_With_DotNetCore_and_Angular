@@ -23,7 +23,8 @@ namespace API
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddDbContext<StoreContext>(x => x.UseSqlite(_config.GetConnectionString("DefaultConnections")));
+            services.AddDbContext<StoreContext>(x => 
+                x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
             
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
@@ -50,6 +51,7 @@ namespace API
             app.UseRouting();
             app.UseStaticFiles();
             
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwaggerDocumentation();
