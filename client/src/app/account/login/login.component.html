@@ -4,24 +4,12 @@
             <div class="test-center mb-4">
                 <h1 class="mb-3">Login</h1>
             </div>
-            <div class="form-floating mb-3">
-                <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="Email">
-                <label for="floatingInput">Email address</label>
-              </div>
-              <div class="form-floating">
-                <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-              </div>
+            <app-text-input [formControl]="loginForm.controls['email']" [label]="'Email Address'"></app-text-input>
+            <app-text-input [formControl]="loginForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
+            
               <div class="d-grid">
-                  <button class="btn btn-lg btn-primary mt-3" type="submit">Sign In</button>
+                  <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Sign In</button>
               </div>
         </form>
-    </div>
-    <div class="col-4 ms-5">
-        <p>From Status: {{loginForm.status}}</p>
-        <p>Email Status: {{loginForm.get('email')?.status}}</p>
-        <p>Email touched: {{loginForm.get('email')?.touched}}</p>
-        <p>Email dirty: {{loginForm.get('email')?.dirty}}</p>
-        <pre>{{loginForm.value | json}}</pre>
     </div>
 </div>
