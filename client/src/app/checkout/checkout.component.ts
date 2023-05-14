@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
-
 }
+
