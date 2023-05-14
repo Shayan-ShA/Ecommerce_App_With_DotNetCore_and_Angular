@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './component/text-input/text-input.component';
 import { StepperComponent } from './component/stepper/stepper.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { StepperComponent } from './component/stepper/stepper.component';
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     ReactiveFormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    CdkStepperModule
   ],
   exports: [
     PaginationModule,
@@ -33,7 +35,9 @@ import { StepperComponent } from './component/stepper/stepper.component';
     OrderTotalsComponent,
     ReactiveFormsModule,
     BsDropdownModule,
-    TextInputComponent
+    TextInputComponent,
+    StepperComponent,
+    CdkStepperModule
   ]
 })
 export class SharedModule { }
