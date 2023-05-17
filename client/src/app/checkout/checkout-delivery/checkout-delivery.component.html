@@ -6,7 +6,9 @@
                     id={{method.id}} 
                     value={{method.id}} 
                     formControlName="deliveryMethod"
-                    class="custom-control-input">
+                    class="form-check-input"
+                    (click)="setShippingPrice(method)"    
+                >
                 <label for="{{method.id}}" class="custom-control-label ms-2 mb-3">
                     <strong>{{method.shortName}} - {{method.price | currency}}</strong>
                     <br>
@@ -14,4 +16,13 @@
                 </label>
             </div>
         </div>
+    </div>
+
+    <div class="d-flex justify-content-between flex-row mb-5">
+        <button class="btn btn-outline-primary" cdkStepperPrevious>
+            <i class="fa fa-angle-left"></i> Back to address
+        </button>
+        <button class="btn btn-primary" cdkStepperNext>
+            Go to Review <i class="fa fa-angle-right"></i>
+        </button>
     </div>
