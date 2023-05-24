@@ -5,6 +5,7 @@ using API.Helpers;
 using API.Middleware;
 using API.Extensions;
 using StackExchange.Redis;
+using Microsoft.Extensions.FileProviders;
 
 namespace API
 {
@@ -24,7 +25,7 @@ namespace API
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddDbContext<StoreContext>(x => 
-                x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+                x.UseNpgsql(_config.GetConnectionString("DefaultConnection")));
             
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
@@ -49,8 +50,13 @@ namespace API
             app.UseCors("CorsPolicy");
 
             app.UseRouting();
-            app.UseStaticFiles();
             
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")), RequestPath = "/Content"
+            });
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -59,6 +65,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

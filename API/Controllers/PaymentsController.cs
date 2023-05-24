@@ -10,13 +10,16 @@ namespace API.Controllers
 {
     public class PaymentsController : BaseApiController
     {
-        private const string WhSecret = "";
+        private readonly string _whSecret;
         private readonly IPaymentService _paymentService;
         private readonly ILogger<PaymentsController> _logger;
-        public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger)
+        private readonly IConfiguration _config;
+        public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger, IConfiguration config)
         {
+            _config = config;
             _logger = logger;
             _paymentService = paymentService;
+            _whSecret = config.GetSection("StripeSettings:WhSecret").Value;
         }
 
         [Authorize]
@@ -35,7 +38,7 @@ namespace API.Controllers
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
-            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
+            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], _whSecret);
 
             PaymentIntent intent;
             Order order;
@@ -45,7 +48,7 @@ namespace API.Controllers
                 case "payment_intent.succeeded":
                     intent = (PaymentIntent)stripeEvent.Data.Object;
                     _logger.LogInformation("Payment Succeeded: ", intent.Id);
-                    order  = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
+                    order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
                     _logger.LogInformation("Order updated to payment received: ", order.id);
                     break;
                 case "payment_intent.payment_failed":

@@ -73,7 +73,7 @@ namespace Infrastructure.Identity.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
