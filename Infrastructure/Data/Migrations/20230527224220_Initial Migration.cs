@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class Postgresinitial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,12 +13,12 @@ namespace Infrastructure.Data.Migrations
                 name: "DeliveryMethods",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ShortName = table.Column<string>(type: "text", nullable: true),
-                    DeliveryTime = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ShortName = table.Column<string>(type: "TEXT", nullable: true),
+                    DeliveryTime = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<double>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +29,9 @@ namespace Infrastructure.Data.Migrations
                 name: "ProductBrands",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,9 +42,9 @@ namespace Infrastructure.Data.Migrations
                 name: "ProductTypes",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,20 +55,19 @@ namespace Infrastructure.Data.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BuyerEmail = table.Column<string>(type: "text", nullable: true),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ShipToAddress_FirstName = table.Column<string>(type: "text", nullable: true),
-                    ShipToAddress_LastName = table.Column<string>(type: "text", nullable: true),
-                    ShipToAddress_Street = table.Column<string>(type: "text", nullable: true),
-                    ShipToAddress_City = table.Column<string>(type: "text", nullable: true),
-                    ShipToAddress_State = table.Column<string>(type: "text", nullable: true),
-                    ShipToAddress_Zipcode = table.Column<string>(type: "text", nullable: true),
-                    DeliveryMethodid = table.Column<int>(type: "integer", nullable: true),
-                    Subtotal = table.Column<decimal>(type: "numeric", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    PaymentIntentId = table.Column<string>(type: "text", nullable: true)
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
+                    BuyerEmail = table.Column<string>(type: "TEXT", nullable: true),
+                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ShipToAddress_FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    ShipToAddress_LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    ShipToAddress_Street = table.Column<string>(type: "TEXT", nullable: true),
+                    ShipToAddress_City = table.Column<string>(type: "TEXT", nullable: true),
+                    ShipToAddress_State = table.Column<string>(type: "TEXT", nullable: true),
+                    ShipToAddress_Zipcode = table.Column<string>(type: "TEXT", nullable: true),
+                    DeliveryMethodid = table.Column<int>(type: "INTEGER", nullable: true),
+                    Subtotal = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: false),
+                    PaymentIntentId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,14 +83,14 @@ namespace Infrastructure.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(180)", maxLength: 180, nullable: false),
-                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    PictureUrl = table.Column<string>(type: "text", nullable: false),
-                    ProductTypeId = table.Column<int>(type: "integer", nullable: false),
-                    ProductBrandId = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 180, nullable: false),
+                    Price = table.Column<double>(type: "decimal(18,2)", nullable: false),
+                    PictureUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductTypeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductBrandId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,14 +113,13 @@ namespace Infrastructure.Data.Migrations
                 name: "OrderItems",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ItemOrdered_ProductItemId = table.Column<int>(type: "integer", nullable: true),
-                    ItemOrdered_ProductName = table.Column<string>(type: "text", nullable: true),
-                    ItemOrdered_PictureUrl = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    Orderid = table.Column<int>(type: "integer", nullable: true)
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
+                    ItemOrdered_ProductItemId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ItemOrdered_ProductName = table.Column<string>(type: "TEXT", nullable: true),
+                    ItemOrdered_PictureUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<double>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Orderid = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
