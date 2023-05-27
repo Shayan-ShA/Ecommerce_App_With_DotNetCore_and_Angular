@@ -80,7 +80,7 @@ namespace Infrastructure.Identity.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

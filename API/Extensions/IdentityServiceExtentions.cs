@@ -14,7 +14,7 @@ namespace API.Extensions
         {
             services.AddDbContext<AppIdentityDbContext>(opt =>
             {
-                opt.UseNpgsql(config.GetConnectionString("IdentityConnection"));
+                opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
             services.AddIdentityCore<AppUser>(opt =>
