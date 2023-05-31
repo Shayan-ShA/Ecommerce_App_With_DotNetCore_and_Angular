@@ -18,8 +18,7 @@ import { OrderDetailedComponent } from './order-detailed/order-detailed.componen
 
 @NgModule({
   declarations: [
-    AppComponent,
-    OrderDetailedComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
